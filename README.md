@@ -9,11 +9,8 @@
 
 * /add
   * **method**: POST
-  * **params**: firstName, lastName
-
-* /result
-  * **method**: GET
   * **params**: -
+  * **body**: Friend
 
 * /list
   * **method**: GET
