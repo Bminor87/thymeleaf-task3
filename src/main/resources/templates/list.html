@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>List of Friends</title>
+</head>
+<body>
+    <div class="p-4 flex flex-col">
+        <h1 class="text-3xl font-bold underline mb-4">My Friends:</h1>
+        <ul>
+            <li th:each="friend: ${friends}">
+                <span th:text="${friend}"></span>
+            </li>
+        </ul>
+    
+        <p class="mt-4">
+            <a th:href="@{/add}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Add Friend
+            </a>
+        </p>
+    </div>
+    
+</body>
+</html>
