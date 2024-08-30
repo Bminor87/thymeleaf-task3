@@ -15,6 +15,8 @@
                 <span th:text="${friend}"></span>
             </li>
         </ul>
+
+        <p th:if="${friends.size()} < 1">😢 You don't have any friends 😢</p>
     
         <p class="mt-4">
             <a th:href="@{/add}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

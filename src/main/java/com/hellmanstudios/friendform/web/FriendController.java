@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
+
 @Controller
 public class FriendController {
 
@@ -24,8 +25,13 @@ public class FriendController {
 
     public FriendController() {
         this.friends = new ArrayList<Friend>();
-        this.friends.add(new Friend("Jesse", "Hellman"));
     }
+
+    @GetMapping("")
+    public String mainPage() {
+        return "redirect:/list";
+    }
+    
 
     @GetMapping("add")
     public String addFriendForm(Model model) {
