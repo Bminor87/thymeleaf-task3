@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.hellmanstudios.friendform.domain.Friend;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 
 
@@ -26,14 +28,30 @@ public class FriendController {
     }
 
     @GetMapping("add")
-    public String addFriendForm() {
+    public String addFriendForm(Model model) {
+        model.addAttribute("friend", new Friend("", ""));
         return "add";
     }
 
-    @PostMapping("add")
-    public String addFriend(@RequestBody String firstName, @RequestBody String lastName) {
+    @GetMapping("addfriend")
+    public String altRouteAddFriendForm() {
+        return "redirect:/add";
+    }
+    
 
-        return "redirect: list";
+    @PostMapping("add")
+    public String addFriend(@ModelAttribute Friend friend, RedirectAttributes redirectAttributes, Model model) {
+
+        if (friend.getFirstName().isEmpty()) {
+            model.addAttribute("error", "Your friend must have a first name!");
+            model.addAttribute("friend", friend);
+            return "add";
+        } else {
+            this.friends.add(new Friend(friend.getFirstName(), friend.getLastName()));
+            redirectAttributes.addFlashAttribute("message", friend + " added to friends");
+        }
+
+        return "redirect:/list";
     }
 
     @GetMapping("list")
@@ -41,5 +59,11 @@ public class FriendController {
         model.addAttribute("friends", friends);
         return "list";
     }
+
+    @GetMapping("friends")
+    public String altRouteFriendsList() {
+        return "redirect:/list";
+    }
+    
 
 }
